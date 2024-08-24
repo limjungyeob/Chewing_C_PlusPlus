@@ -5,6 +5,6 @@
     ref[0] = 2;
     ref[1] = 3;
     ref[2] = 1;
-        std::cout << arr[0] << arr[1] << arr[2] << std::endl;
+    std::cout << arr[0] << arr[1] << arr[2] << std::endl;
     return 0;
  }

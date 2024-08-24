@@ -1,9 +1,9 @@
- /* í–‰ìš´ì˜ìˆ«ìë§ì¶”ê¸°*/
+ /* Çà¿îÀÇ ¼ıÀÚ ¸ÂÃß±â*/
  #include <iostream>
     int main() {
         int lucky_number = 3;
         std::cout << "input secreat number~" << std::endl;
-        int user_input; // ì‚¬ìš©ìì…ë ¥
+        int user_input; // »ç¿ëÀÚ ÀÔ·Â
 
         while (1) {
             std::cout << "input: ";
