@@ -1,57 +1,49 @@
+// 포토캐논
+#include <string.h>
 #include <iostream>
-class Marine {
-    int hp; // 마린 체력
-    int coord_x, coord_y; // 마린 위치
-    int damage; // 공격력
-    bool is_dead;
+
+class Photon_Cannon {
+    int hp, shield;
+    int coord_x, coord_y;
+    int damage;
     public:
-        Marine(); // 기본 생성자
-        Marine(int x, int y); // x, y 좌표에 마린 생성
-        int attack(); // 데미지를 리턴한다.
-        void be_attacked(int damage_earn); // 입는 데미지
-        void move(int x, int y); // 새로운 위치
-        void show_status(); // 상태를 보여준다.
+        Photon_Cannon(int x, int y);
+        Photon_Cannon(const Photon_Cannon& pc);
+        void show_status();
 };
-
-Marine::Marine() {
-    hp = 50;
-    coord_x = coord_y = 0;
-    damage = 5;
-    is_dead = false;
+//복사 생성자의 표준적인 정의
+//ex) T(const T& a)
+//다른 T의 객체 a를 상수 레퍼런스로 받음.
+//여기서 a가 const이기 때문에 복사 생성자 내부에서 a의 데이터를 변경할 수 없고, 오직 새롭게 초기화 되는
+// 인스턴스 변수들에게 '복사'만 할 수 있게 된다.
+Photon_Cannon::Photon_Cannon(const Photon_Cannon& pc) {
+    std::cout << "복사 생성자 호출 !" << std::endl;
+    hp = pc.hp;
+    shield = pc.shield;
+    coord_x = pc.coord_x;
+    coord_y = pc.coord_y;
+    damage = pc.damage;
 }
 
-Marine::Marine(int x, int y) {
+Photon_Cannon::Photon_Cannon(int x, int y) {
+    std::cout << "생성자 호출 !" << std::endl;
+    hp = shield = 100;
     coord_x = x;
     coord_y = y;
-    hp = 50;
-    damage = 5;
-    is_dead = false;
+    damage = 20;
 }
 
-void Marine::move(int x, int y) {
-    coord_x = x;
-    coord_y = y;
-}
-
-int Marine::attack() { return damage; }
-void Marine::be_attacked(int damage_earn) {
-    hp -= damage_earn;
-    if (hp <= 0) is_dead = true;
-}
-
-void Marine::show_status() {
-    std::cout << " *** Marine *** " << std::endl;
+void Photon_Cannon::show_status() {
+    std::cout << "Photon Cannon " << std::endl;
     std::cout << " Location : ( " << coord_x << " , " << coord_y << " ) " << std::endl;
     std::cout << " HP : " << hp << std::endl;
 }
 
 int main() {
-    Marine marine1(2, 3);
-    Marine marine2(3, 5);
-    marine1.show_status();
-    marine2.show_status();
-    std::cout << std::endl << "마린 1 이 마린 2 를 공격! " << std::endl;
-    marine2.be_attacked(marine1.attack());
-    marine1.show_status();
-    marine2.show_status();
+    Photon_Cannon pc1(3, 3);
+    Photon_Cannon pc2(pc1);
+    //C++ 컴파일러는 아래 문장을 Photo_Cannon pc3(pc2); 와 동일하게 해석한다.
+    Photon_Cannon pc3 = pc2;
+    pc1.show_status();
+    pc2.show_status();
 }

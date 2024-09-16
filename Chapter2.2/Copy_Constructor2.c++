@@ -1,61 +1,61 @@
+// 복사 생성자의 중요성
+#include <string.h>
 #include <iostream>
-class Marine {
-    int hp; // 마린 체력
-    int coord_x, coord_y; // 마린 위치
-    int damage; // 공격력
-    bool is_dead;
+
+class Photon_Cannon {
+    int hp, shield;
+    int coord_x, coord_y;
+    int damage;
+    char *name;
     public:
-        Marine(); // 기본 생성자
-        Marine(int x, int y); // x, y 좌표에 마린 생성
-        int attack(); // 데미지를 리턴한다.
-        void be_attacked(int damage_earn); // 입는 데미지
-        void move(int x, int y); // 새로운 위치
-        void show_status(); // 상태를 보여준다.
+        Photon_Cannon(int x, int y);
+        Photon_Cannon(int x, int y, const char *cannon_name);
+        Photon_Cannon(const Photon_Cannon &pc);
+        ~Photon_Cannon();
+        void show_status();
 };
 
-Marine::Marine() {
-    hp = 50;
-    coord_x = coord_y = 0;
-    damage = 5;
-    is_dead = false;
-}
-
-Marine::Marine(int x, int y) {
+Photon_Cannon::Photon_Cannon(int x, int y) {
+    hp = shield = 100;
     coord_x = x;
     coord_y = y;
-    hp = 50;
-    damage = 5;
-    is_dead = false;
+    damage = 20;
+    name = NULL;
+}
+Photon_Cannon::Photon_Cannon(const Photon_Cannon &pc) {
+    std::cout << "복사 생성자 호출! " << std::endl;
+    hp = pc.hp;
+    shield = pc.shield;
+    coord_x = pc.coord_x;
+    coord_y = pc.coord_y;
+    damage = pc.damage;
+    name = new char[strlen(pc.name) + 1];
+    strcpy(name, pc.name);
 }
 
-void Marine::move(int x, int y) {
+Photon_Cannon::Photon_Cannon(int x, int y, const char *cannon_name) {
+    hp = shield = 100;
     coord_x = x;
     coord_y = y;
+    damage = 20;
+    name = new char[strlen(cannon_name) + 1];
+    strcpy(name, cannon_name);
 }
 
-int Marine::attack() { return damage; }
-void Marine::be_attacked(int damage_earn) {
-    hp -= damage_earn;
-    if (hp <= 0) is_dead = true;
+Photon_Cannon::~Photon_Cannon() {
+    if (name) delete[] name;
 }
 
-void Marine::show_status() {
-    std::cout << " *** Marine *** " << std::endl;
-    std::cout << " Location : ( " << coord_x << " , " << coord_y << " ) " << std::endl;
+void Photon_Cannon::show_status() {
+    std::cout << "Photon Cannon :: " << name << std::endl;
+    std::cout << " Location : ( " << coord_x << " , " << coord_y << " ) "
+    << std::endl;
     std::cout << " HP : " << hp << std::endl;
 }
 
-/* int main 전 까지 내용은 동일 */
 int main() {
-    Marine* marines[100];
-    marines[0] = new Marine(2, 3);
-    marines[1] = new Marine(3, 5);
-    marines[0]->show_status();
-    marines[1]->show_status();
-    std::cout << std::endl << "마린 1 이 마린 2 를 공격! " << std::endl;
-    marines[0]->be_attacked(marines[1]->attack());
-    marines[0]->show_status();
-    marines[1]->show_status();
-    delete marines[0];
-    delete marines[1];
+    Photon_Cannon pc1(3, 3, "Cannon");
+    Photon_Cannon pc2 = pc1;
+    pc1.show_status();
+    pc2.show_status();
 }
