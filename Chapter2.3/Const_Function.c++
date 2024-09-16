@@ -60,6 +60,8 @@ void Marine::move(int x, int y) {
 // 이 함수는 다른 변수의 값을 바꾸지 않는 함수라고 프로그래머에게 명시 시킬 수 있다.
 //당연하게도, 상수 함수 내에서는 객체들의 '읽기'만이 수행되며, 상수 함수 내에서 호출 할 수 있는 함수로는
 //상수 함수 밖에 없다.
+//사실 많은 경우 클래스를 설계할 때, 멤버 변수들은 모두 private에 넣고 이 변수들의 값에 접근하는 방법은 public 함수를 통해 
+// setter getter를 사용하기도 한다.
 int Marine::attack() const { return default_damage; }
     Marine& Marine::be_attacked(int damage_earn) {
     hp-= damage_earn;
