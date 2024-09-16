@@ -54,9 +54,18 @@ void Marine::move(int x, int y) {
 }
 
 int Marine::attack() { return default_damage; }
-    Marine& Marine::be_attacked(int damage_earn) {
+Marine& Marine::be_attacked(int damage_earn) {
+    //this 라는 것이 c++ 언어 차원에서 정의되어 있는 키워드 인데, 
+    //이는 객체 자신을 가리키는 포인터의 역할을 한다.
+    //즉, 이 멤버 함수를 호출하는 객체 자신을 가리키게 된다.
+    //밑에 코드와 동일한다.
+    //this -> hp -= damage_earn;
+    //if (this -> hp <0= ) this -> is_dead = true;
+    //return *this;
+    //구조체 포인터 변수에서 ->를 이용해서 구조체 원소들에 접근할 수 있다.
     hp -= damage_earn;
     if (hp <= 0) is_dead = true;
+
     return *this;
 }
 

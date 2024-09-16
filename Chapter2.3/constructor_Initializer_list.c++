@@ -13,10 +13,18 @@ class Marine {
         void move(int x, int y); // 새로운 위치
         void show_status(); // 상태를 보여준다.
 };
+//이 부분이 초기화 리스트(initializer list) 라고 부른다. 생성자 호출과 동시에 멤버 변수들을 초기화하게 해준다.
 Marine::Marine()
     : hp(50), coord_x(0), coord_y(0), default_damage(5), is_dead(false) {}
 Marine::Marine(int x, int y)
     : coord_x(x), coord_y(y), hp(50), default_damage(5), is_dead(false) {}
+//ex) (생성자 생성자이름) : var(ar1), var2(arg2) {}
+//초기화 리스트를 사용하지 않는다면 생성을 먼저 하고 그 다음에 대입을 수행한다.
+//쉽게 말해 int a = 10; 과 int a; a = 10;의 차이 이다.
+//만약에 int 대신에 클래스 였다면, 전자의 경우 복사 생성자가 호출되는데, 후자의 경우 디폴트 생성자가 호출한 다음에
+// 대입이 수행한다.
+// 딱봐도 후자가 조금 더하는 작업이 많게 된다.
+// 따라서 초기화 리스트를 사용하는 것이 조금 더 효율적인 작업이라는 사실을알 수 있다.
 void Marine::move(int x, int y) {
     coord_x = x;
     coord_y = y;

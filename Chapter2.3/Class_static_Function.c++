@@ -1,5 +1,11 @@
+// static 변수만 만들 수 있는 것이 아닌 static 함수도 정의할 수 있는데,
+//static 변수가 어떠한 객체에 종속되는 것이 아니라, 그냥 클래스 자체에 딱 1개 존재하는 것인 것 처럼,
+// static 함수 역시 어떤 특정 객체 종속되는 것이 아니라 클래스 전체에 딱 1개 존재하는 함수이다.
+//즉 static이 아닌 멤버 함수들의 경우 객체를 만들어야지만 각 멤버 함수들을 호출할 수 있지만
+//static함수의 경우, 객체가 없어도 그냥 클래스 자체에서 호출할 수 있게된다.
 // static 함수
 #include <iostream>
+
 class Marine {
     static int total_marine_num;
     const static int i = 0;
@@ -21,6 +27,8 @@ class Marine {
 
 int Marine::total_marine_num = 0;
 
+//static 함수는 어떤 객체 종속되는 것이 아니라 클래스에 종속되는 것으로,
+//따라서 이를 호출하는 방법도 (객체).(멤버 함수)가 아니라 (클래스) :: (static 함수) 형식으로 호출하게 된다.
 void Marine::show_total_marine() {
     std::cout << "전체 마린 수 : " << total_marine_num << std::endl;
     //static 함수는 static 변수만을 이용할 수 밖에 없다.
