@@ -39,6 +39,9 @@ Photon_Cannon::Photon_Cannon(int x, int y, const char *cannon_name) {
     coord_y = y;
     damage = 20;
     name = new char[strlen(cannon_name) + 1];
+    //C++에서 문자열을 다룰 때 C언어 처럼 널 종료 char 배열로 다루는 것은 매우매우 비추한다고 한다.
+    //C++ 표준 라이브러리에서 std::string이라는 훌룡한 문자열 클래스를 제공하니까
+    //뒤의 강좌들도 꼭 읽어서 사용법을 숙지.
     strcpy(name, cannon_name);
 }
 
@@ -48,8 +51,7 @@ Photon_Cannon::~Photon_Cannon() {
 
 void Photon_Cannon::show_status() {
     std::cout << "Photon Cannon :: " << name << std::endl;
-    std::cout << " Location : ( " << coord_x << " , " << coord_y << " ) "
-    << std::endl;
+    std::cout << " Location : ( " << coord_x << " , " << coord_y << " ) " << std::endl;
     std::cout << " HP : " << hp << std::endl;
 }
 

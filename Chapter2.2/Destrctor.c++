@@ -27,6 +27,7 @@ Marine::Marine() {
 }
 
 Marine::Marine(int x, int y, const char* marine_name) {
+    //Array_Marine.c++ 에서 name만 추가됨.
     name = new char[strlen(marine_name) + 1];
     strcpy(name, marine_name);
     coord_x = x;
@@ -34,6 +35,10 @@ Marine::Marine(int x, int y, const char* marine_name) {
     hp = 50;
     damage = 5;
     is_dead = false;
+    //name을 동적으로 생성해서 문자열을 복사하였는데, 이렇게 동적으로 할당된 char배열에 대한 delete는
+    //명확히 delete를 지정하지 않는 한 자동으로 delete가 되는 경우는 없다.
+    //다시 말해 동작 할당한 name은 메모리 누수(Memory Leak)가 발생한다.
+    //이 때 필요한 기능이 소멸자(Destructor)
 }
 
 Marine::Marine(int x, int y) {

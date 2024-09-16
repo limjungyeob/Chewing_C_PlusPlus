@@ -51,6 +51,7 @@ void Marine::show_status() {
 /* int main 전까지내용은동일*/
 int main() {
     Marine* marines[100];
+    //동적 할당 
     marines[0] = new Marine(2, 3);
     marines[1] = new Marine(3, 5);
     marines[0]->show_status();

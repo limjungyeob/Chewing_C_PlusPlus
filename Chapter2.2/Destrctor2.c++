@@ -58,6 +58,7 @@ void Marine::show_status() {
     << std::endl;
     std::cout << " HP : " << hp << std::endl;
 }
+//동적할당한 name을 소멸한다.
 Marine::~Marine() {
     std::cout << name << " 의 소멸자 호출 ! " << std::endl;
     if (name != NULL) {
