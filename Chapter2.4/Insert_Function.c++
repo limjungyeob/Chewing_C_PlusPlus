@@ -132,7 +132,7 @@ MyString& MyString::insert(int loc, const MyString& str) {
     // 범위를 벗어나는 입력에 대해서는 삽입을 수행하지 않는다.
     if (loc < 0 || loc > string_length) return *this;
     if (string_length + str.string_length > memory_capacity) {
-        // 이전의 assign 함수 처럼 새로 메모리를 하당해야 할 경우와, 굳이 할당할 필요가 없는 경우를 나뉘어서 처리함.
+        // 이전의 assign 함수 처럼 새로 메모리를 할당해야 할 경우와, 굳이 할당할 필요가 없는 경우를 나뉘어서 처리함.
         // 만약 원 문자열 길이 + 새로 삽입되는 문자열 길이가, 현재의 할당된 메모리의 크기보다 크면 새로 할당하고 아니면 할당하지 않는다.
         // 이제 새롭게 동적으로 할당을 해야 한다.
         /*
