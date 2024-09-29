@@ -136,7 +136,10 @@ MyString& MyString::insert(int loc, const MyString& str) {
         // 만약 원 문자열 길이 + 새로 삽입되는 문자열 길이가, 현재의 할당된 메모리의 크기보다 크면 새로 할당하고 아니면 할당하지 않는다.
         // 이제 새롭게 동적으로 할당을 해야 한다.
         /*
-        
+        만약 작은 크기의 문자열을 여러번 insert한다면, capacity가 한계에 도달하게 되는데 ,이는 엄청난 작업 낭비가 될수 있다.
+        따라서 insert 작업에서의 잦은 할당 /해제를 피하기 위해 미리 메모리를 할당해놓기와 메모리를 할당해 놓되, 많은 자원을 낭비하지 않는다. 라는 
+        조건을 만족시키기 위해 현재 메모리의 크기의 두 배 정도를 미리 할당해 놓는 것이다.
+        이를 코드를 표현하면 아래와 같다.
         */
         if (memory_capacity * 2 > string_length + str.string_length)
             memory_capacity *= 2;
