@@ -30,6 +30,7 @@ class MyString {
         MyString& insert(int loc, const MyString& str);
         MyString& insert(int loc, const char* str);
         MyString& insert(int loc, char c);
+        MyString& erase(int loc, int num);
 };
 
 MyString::MyString(char c) {
@@ -192,6 +193,17 @@ MyString& MyString::insert(int loc, char c) {
     MyString temp(c);
     return insert(loc, temp);
 }
+MyString& MyString::erase(int loc, int num) {
+    // loc 의앞부터시작해서num 문자를지운다.
+    if (num < 0 || loc < 0 || loc > string_length) return *this;
+    // 지운다는것은단순히뒤의문자들을앞으로끌고온다고
+    // 생각하면됩니다.
+    for (int i = loc + num; i < string_length; i++) {
+        string_content[i- num] = string_content[i];
+    }
+    string_length-= num;
+    return *this;
+}
 int main() {
     MyString str1("very long string");
     MyString str2("<some string inserted between>");
@@ -203,5 +215,7 @@ int main() {
     str1.println();
     std::cout << "Capacity : " << str1.capacity() << std::endl;
     std::cout << "String length : " << str1.length() << std::endl;
+    str1.println();
+    str1.erase(0,1);
     str1.println();
 }
