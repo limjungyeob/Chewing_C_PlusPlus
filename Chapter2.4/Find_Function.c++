@@ -191,7 +191,10 @@ MyString& MyString::erase(int loc, int num) {
     string_length-= num;
     return *this;
 }
-int MyString::find(int find_from, const MyString& str) const {
+int MyString::find(int find_from, const MyString& str) const {\
+    // find_from 에서 부터 시작해서 가장 첫번째 str의 위치를 리턴하게 된다.
+    //string_content와 str가 완벽히 일치하는 부분이 생긴다면 그 위치를 리턴한다.
+    //str이 문자열에 포함되어 있지만 않다면, -1를 리턴하게 된다.
     int i, j;
     if (str.string_length == 0) return-1;
     for (i = find_from; i <= string_length- str.string_length; i++) {
@@ -214,8 +217,7 @@ int MyString::find(int find_from, char c) const {
 }
 int main() {
     MyString str1("this is a very very long string");
-    std::cout << "Location of first <very> in the string : " << str1.find(0, "very")
-    << std::endl;
-    std::cout << "Location of second <very> in the string : "
-    << str1.find(str1.find(0, "very") + 1, "very") << std::endl;
+    std::cout << "Location of first <very> in the string : " << str1.find(0, "very") << std::endl;
+    std::cout << "Location of second <very> in the string : " << str1.find(str1.find(0, "very") + 1, "very") << std::endl;
+    //첫번째 위치를 찾은 다음 이전의 검색 한 위치 바로 다음 부터 very를 찾는것.
 }

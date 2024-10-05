@@ -1,3 +1,8 @@
+/*
+크기 비교 함수 compare.
+여기서 '크기'를 비교한다는 의미는 사전식으로 배열해서 어떤 문자열이 더 뒤에 오는지 판단하는 의미가 된다.
+기존의 c언어에서 strcm함수 등으로 지원하였던 것들을 그대로 사용할 수 있게된다.
+*/
 #include <iostream>
 // string.h 는strlen 때문에include 했는데, 사실여러분이직접strlen
 // 과같은함수를만들어서써도됩니다.
@@ -31,7 +36,6 @@ class MyString {
         int find(int find_from, const MyString& str) const;
         int find(int find_from, const char* str) const;
         int find(int find_from, char c) const;
-        MyString& erase(int loc, int num);
         int compare(const MyString& str) const;
 };
 
@@ -217,21 +221,10 @@ int MyString::find(int find_from, char c) const {
     return find(find_from, temp);
 }
 
-MyString& MyString::erase(int loc, int num) {
-    // loc 의앞부터시작해서num 문자를지운다.
-    if (num < 0 || loc < 0 || loc > string_length) return *this;
-    // 지운다는것은단순히뒤의문자들을앞으로끌고온다고
-    // 생각하면됩니다.
-    for (int i = loc + num; i < string_length; i++) {
-        string_content[i- num] = string_content[i];
-    }
-    string_length-= num;
-    return *this;
-}
 
 int MyString::compare(const MyString& str) const {
     // (*this)- (str) 을수행해서그1, 0,-1 로그결과를리턴한다
-    // 1 은(*this) 가사전식으로더뒤에온다는의미. 0 은두문자열
+    // 1 은(*this) 가 사전식으로더뒤에온다는의미. 0 은두문자열
     // 이같다는의미,-1 은(*this) 가사전식으로더앞에온다는의미이다.
     for (int i = 0; i < std::min(string_length, str.string_length); i++) {
         if (string_content[i] > str.string_content[i])
@@ -247,8 +240,9 @@ int MyString::compare(const MyString& str) const {
     return 1;
     return-1;
 }
+
 int main() {
-MyString str1("abcdef");
-MyString str2("abcde");
-std::cout << "str1 and str2 compare : " << str1.compare(str2) << std::endl;
+    MyString str1("abcdef");
+    MyString str2("abcde");
+    std::cout << "str1 and str2 compare : " << str1.compare(str2) << std::endl;
 }
