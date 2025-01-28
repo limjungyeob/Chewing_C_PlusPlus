@@ -5,7 +5,7 @@ int main() {
     std::string s;
     std::cin >> s;
 
-    // 위치 지정자를 한 칸 옮기고, 그 다움 문자를 훔쳐본다. (이 때는 움지이지 않음)
+    // 위치 지정자를 한 칸 옮기고, 그 다움 문자를 훔쳐본다. (이 때는 움직이지 않음)
     char peek = std::cin.rdbuf()->snextc();
     //입력 객체 cin의 rdbuf를 호출하게 되면, cin 객체가 입력을 수행하고 있던 streambuf 객체를 가리키는 
     //포인터를 리턴하게 된다.
