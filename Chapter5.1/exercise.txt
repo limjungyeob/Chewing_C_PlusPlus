@@ -1,0 +1,57 @@
+문제1(난이도:中)
+일단엑셀의셀들의정보(일단단순한std::string이라고생각합시다)에대한Cell클래스가
+있고이Cell 객체들을모아두는 Table 클래스가 있습니다. Table 클래스에는 2차원 배열로
+Cell 객체들에대한정보(참고로Cell객체가생성될때마다동적으로Cell객체를생성합니
+다.) 가보관되어있습니다. 또한Table클래스에전체데이터를출력하는print_table함수가
+가상으로정의되어있습니다.
+여러분은Table클래스를상속받는TextTable, CSVTable, HTMLTable클래스를만들어서
+print_table 함수를오버라이드할함수들을제작할것입니다. 예를들어TextTable클래스의
+print_table 함수는 텍스트 형식으로, CSVTable 은 CSV 파일 형식으로 등등 만들어야 겠지
+요?제가아래대충프로그램의골격을잡아놓았으니여러분들은이를채우기만하면됩니다.
+
+class Cell {
+    Table* table; // 어느테이블에속해있는지
+    std::string data;
+    int x, y; // 테이블에서의위치
+    public:
+        Cell(const std::string& data) : data(data){};
+};
+
+class Table {
+    Cell*** data_base; // 왜3중포인터인지잘생각해보세요!
+    public:
+        Table();
+        virtual std::string print_table() = 0;
+        void reg_cell(Cell* c, int row, int col); // Cell 을등록한다
+        std::string get_cell_std::string(int row,
+        int col); // 해당위치의Cell 데이터를얻는다.
+        ~Table();
+};
+ostream& operator<<(ostream& o, Table& t) {
+    o << t.print_table();
+    return o;
+}
+class TextTable : public Table {};
+class CSVTable : public Table {};
+class HTMLTable : public Table {};
+
+문제2(난이도:最上-위의문제와이어집니다)
+하지만실제엑셀의경우셀이문자열데이터만들어가는것이아니라,숫자나날짜심지어수식까지
+도들어갈수있습니다. 따라서우리는Cell을상속받는4개의StringCell. NumberCell,
+ DateCell, ExprCell 클래스들을 만들어야합니다.
+또한 Cell 클래스에 to_numeric (데이터를 숫자로 바꾼다)과 std::stringify (데이터를
+문자열로바꾼다)함수들을가상으로정의하고,4개의클래스들이이를상속받아서구현할수있게
+해야합니다. (참고로문자열을숫자로변환하면그냥0이되게하면됩니다)
+또한ExprCell 의 경우간단한수식에대한정보를가지는객체로,Cell들간의연산을사용할
+수있습니다. 에를들어서A1+B2+C6-6와같은데이터가들어있는ExprCell에to_numeric
+함수를호출하면A1, B2, C6의값을더하고(각셀에to_numeric을해서),6을빼준결과값이
+나와야합니다.
+참고로프로그래밍의편의를위해서ExprCell 의경우, 셀을지칭하는것은딱두글자(A1, Z9
+처럼) 로하고,숫자는오직한자리수정수,그리고가능한연산자는+,-, *, /로하겠습니다.
+아마도여태까지강좌에서한프로그래밍중에가장도전적인것이아닌가싶습니다. 참고로위를
+구현하기위해서여러가지자료형이필요할텐데(있으면편리합니다!),대표적으로벡터와스택이
+있습니다. 벡터는가변길의배열로, 배열처럼사용하면서사용자가임의의위치에자료를넣다
+뺏다할수있는구조고,스택은pop과push밖에없는자료형으로,push을하면새로운데이터가
+맨위에삽입되고,pop 을하면맨위에있는것부터제거되어나오게됩니다. (즉먼저넣은것이
+나중에나오는자료구조입니다)저는이들자료구조를새롭게만들어서사용하였습니다. 여러분
+들도아마필요하실것입니다.
